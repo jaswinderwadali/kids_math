@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic Math - Find the Biggest!</title>
+  <meta name="description" content="A fun, interactive, and colorful math game for kids to compare numbers and find the biggest one!">
+  <!-- Playful rounded Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Floating Confetti Overlay -->
+  <div id="confetti-container" class="confetti-container" aria-hidden="true"></div>
+
+  <div class="game-wrapper">
+    <!-- Header / Stats Bar -->
+    <header class="game-header">
+      <div class="header-left">
+        <div style="display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center;">
+          <a href="index.html" class="home-btn" aria-label="Back to Home">🏠 Back</a>
+          <h1 class="logo-text">Magic Math ✨</h1>
+        </div>
+        <div class="difficulty-control">
+          <label for="difficulty-select">Numbers:</label>
+          <select id="difficulty-select" class="styled-select" aria-label="Select Number Range">
+            <option value="adaptive" selected>Adaptive 🌟</option>
+            <option value="10">Up to 10</option>
+            <option value="20">Up to 20</option>
+            <option value="50">Up to 50</option>
+            <option value="70">Up to 70</option>
+            <option value="100">Up to 100</option>
+          </select>
+          <span id="range-badge" class="range-badge" style="display: none;">Up to 10</span>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <!-- Stars count / Score -->
+        <div class="score-card" id="score-card">
+          <span class="star-icon">⭐</span>
+          <span id="star-count" class="star-count">0</span>
+          <span id="streak-indicator" class="streak-indicator" style="display: none;">🔥<span id="streak-count">0</span></span>
+        </div>
+        <!-- Oopsies count -->
+        <div class="score-card oopsies-card" id="oopsies-card" title="Practice Tries">
+          <span class="oopsies-icon">🩹</span>
+          <span id="oopsies-count" class="oopsies-count">0</span>
+        </div>
+        <!-- Mute Button -->
+        <button id="sound-toggle" class="sound-btn" aria-label="Toggle Sound">
+          <span id="sound-icon">🔊</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Game Board -->
+    <main class="game-board">
+      
+      <!-- Mascot reactions area -->
+      <div class="mascot-section">
+        <div id="mascot" class="mascot-container normal">
+          <svg id="mascot-svg" class="mascot-svg" viewBox="0 0 100 100" width="120" height="120" aria-label="Happy Math Mascot">
+            <!-- Cozy Yellow Star Shape -->
+            <polygon class="star-body" points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="#FFD15C" stroke="#E6A620" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <!-- Eyes Group -->
+            <g class="eyes normal-eyes">
+              <circle cx="40" cy="45" r="4.5" fill="#2C3E50"/>
+              <circle cx="60" cy="45" r="4.5" fill="#2C3E50"/>
+              <circle cx="38" cy="43" r="1.5" fill="#FFFFFF"/>
+              <circle cx="58" cy="43" r="1.5" fill="#FFFFFF"/>
+            </g>
+            
+            <g class="eyes happy-eyes">
+              <path d="M34 46 Q40 40 46 46" fill="none" stroke="#2C3E50" stroke-width="4.5" stroke-linecap="round"/>
+              <path d="M54 46 Q60 40 66 46" fill="none" stroke="#2C3E50" stroke-width="4.5" stroke-linecap="round"/>
+            </g>
+            
+            <g class="eyes think-eyes">
+              <path d="M35 43 L45 47" fill="none" stroke="#2C3E50" stroke-width="4" stroke-linecap="round"/>
+              <path d="M65 43 L55 47" fill="none" stroke="#2C3E50" stroke-width="4" stroke-linecap="round"/>
+            </g>
+
+            <!-- Rosy Cheek Blushes -->
+            <circle cx="31" cy="53" r="5" fill="#FF8A80" opacity="0.75"/>
+            <circle cx="69" cy="53" r="5" fill="#FF8A80" opacity="0.75"/>
+            
+            <!-- Mouth Shapes -->
+            <path id="mouth-smile" class="mouths" d="M43 55 Q50 63 57 55" fill="none" stroke="#2C3E50" stroke-width="4" stroke-linecap="round"/>
+            <ellipse id="mouth-gasp" class="mouths" cx="50" cy="59" rx="5" ry="7" fill="#2C3E50"/>
+            <line id="mouth-neutral" class="mouths" x1="44" y1="58" x2="56" y2="58" stroke="#2C3E50" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <div class="speech-bubble" id="speech-bubble">Find it! 👑</div>
+        </div>
+      </div>
+
+      <!-- Question Prompt Box -->
+      <section class="question-container">
+        <h2 class="question-title">Find the biggest number!</h2>
+        <div class="question-display">
+          <span class="number-box current-num" id="current-number">👑</span>
+          <span class="next-arrow">👉</span>
+          <span class="number-box target-num" id="target-box">?</span>
+        </div>
+      </section>
+
+      <!-- Options Grid -->
+      <section class="options-container" id="options-grid">
+        <button class="option-btn option-1" id="opt-0">1</button>
+        <button class="option-btn option-2" id="opt-1">2</button>
+        <button class="option-btn option-3" id="opt-2">3</button>
+        <button class="option-btn option-4" id="opt-3">4</button>
+      </section>
+
+      <div id="status-message" class="sr-only" role="status"></div>
+    </main>
+    
+    <!-- Footer info -->
+    <footer class="game-footer">
+      <p>Keep answering to grow your streak! You can do it! 🌈✨</p>
+    </footer>
+  </div>
+
+  <script src="game-bigger.js"></script>
+</body>
+</html>
+

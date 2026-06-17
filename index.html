@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic Math Adventures 🏰✨</title>
+  <meta name="description" content="Welcome to Magic Math Adventures! Play fun interactive games and learn math the magic way!">
+  <!-- Playful rounded Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="home-body">
+  <div class="home-wrapper">
+    <!-- Hub Header -->
+    <header class="home-header">
+      <div class="logo-area">
+        <h1 class="logo-main">Magic Math Adventures 🏰✨</h1>
+        <p class="logo-sub">Let's learn and play with numbers!</p>
+      </div>
+      <div class="stats-area">
+        <div class="score-card star-total" title="Total Stars Collected">
+          <span class="star-icon">⭐</span>
+          <span id="total-stars" class="star-count">0</span>
+        </div>
+        <div class="score-card oopsies-card oops-total" title="Total Practice Attempts">
+          <span class="oopsies-icon">🩹</span>
+          <span id="total-oopsies" class="oopsies-count">0</span>
+        </div>
+        <button id="reset-progress" class="reset-btn" title="Reset all progress" aria-label="Reset Progress">🗑️</button>
+      </div>
+    </header>
+
+    <!-- Games Feed Container -->
+    <main class="games-feed">
+      <!-- Game 1: What Comes After (Featured, full-width at the top) -->
+      <a href="what-comes-after.html" class="hub-card featured-card card-after">
+        <div class="card-glow"></div>
+        <div class="card-icon">👉</div>
+        <div class="card-content">
+          <span class="card-badge">Quest 1 (Recommended)</span>
+          <h2 class="card-title">What Comes After?</h2>
+          <p class="card-description">Learn what number comes next in sequence. Count along and find the answer! Example: 9 is followed by 10.</p>
+          <div class="card-footer">Play Now! 🚀</div>
+        </div>
+      </a>
+
+      <!-- Sub-grid of other games -->
+      <div class="games-grid">
+        <!-- Game 2: What Comes Before -->
+        <a href="what-comes-before.html" class="hub-card game-card card-before">
+          <div class="card-icon">👈</div>
+          <div class="card-content">
+            <h3 class="card-title">What Comes Before?</h3>
+            <p class="card-description">Find the number that comes right before. Think backward! Example: what comes before 8? It's 7!</p>
+            <div class="card-footer">Start 🌟</div>
+          </div>
+        </a>
+
+        <!-- Game 3: Magic Addition -->
+        <a href="addition.html" class="hub-card game-card card-addition">
+          <div class="card-icon">🍎+🍏</div>
+          <div class="card-content">
+            <h3 class="card-title">Magic Addition</h3>
+            <p class="card-description">Add groups together! Count cute stars and apples to find the sum. Practice your adding powers.</p>
+            <div class="card-footer">Start 🌟</div>
+          </div>
+        </a>
+
+        <!-- Game 4: Magic Subtraction -->
+        <a href="subtraction.html" class="hub-card game-card card-subtraction">
+          <div class="card-icon">🎈-🎈</div>
+          <div class="card-content">
+            <h3 class="card-title">Magic Subtraction</h3>
+            <p class="card-description">Take away items! Count the crossed-out balloons and stars to find the difference easily.</p>
+            <div class="card-footer">Start 🌟</div>
+          </div>
+        </a>
+
+        <!-- Game 5: Find the Biggest -->
+        <a href="bigger-number.html" class="hub-card game-card card-bigger">
+          <div class="card-icon">👑</div>
+          <div class="card-content">
+            <h3 class="card-title">Find the Biggest</h3>
+            <p class="card-description">Compare four numbers side-by-side and spot the biggest number in the group. Crown the largest!</p>
+            <div class="card-footer">Start 🌟</div>
+          </div>
+        </a>
+
+        <!-- Game 6: Count the Shapes -->
+        <a href="counting-shapes.html" class="hub-card game-card card-counting">
+          <div class="card-icon">🎨</div>
+          <div class="card-content">
+            <h3 class="card-title">Count the Shapes</h3>
+            <p class="card-description">Count scattered clouds, hearts, and smiling stars. Pick the matching number out of the options.</p>
+            <div class="card-footer">Start 🌟</div>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <!-- Hub Footer -->
+    <footer class="home-footer">
+      <p>Made with love for little math champions! 🌈✨</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Retrieve and display global stats
+      const stars = localStorage.getItem('magic-math-stars') || '0';
+      const oopsies = localStorage.getItem('magic-math-oopsies') || '0';
+      
+      document.getElementById('total-stars').textContent = stars;
+      document.getElementById('total-oopsies').textContent = oopsies;
+
+      // Handle Reset button
+      const resetBtn = document.getElementById('reset-progress');
+      resetBtn.addEventListener('click', () => {
+        if (confirm("Reset all your stars and oopsies?")) {
+          localStorage.setItem('magic-math-stars', '0');
+          localStorage.setItem('magic-math-oopsies', '0');
+          document.getElementById('total-stars').textContent = '0';
+          document.getElementById('total-oopsies').textContent = '0';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
